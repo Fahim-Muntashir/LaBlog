@@ -18,14 +18,30 @@ enum Role {
   Student
 }
 
-model User {
-  id       String  @id @default(uuid())
-  name     String
-  email    String  @unique
-  password String
-  role     Role    @default(Student)
-  isActive Boolean @default(true)
+enum EquitmentStatus {
+  AVAILABLE
+  IN_USE
+  MAINTENENCE
+}
 
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(Student)
+  isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
+}
+
+model Equitment {
+  id           String          @id @default(uuid())
+  name         String
+  serialNumber String          @unique
+  status       EquitmentStatus @default(AVAILABLE)
+  location     String
+  metadata     Json?
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @default(now())
 }
